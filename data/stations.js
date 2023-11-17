@@ -63,6 +63,20 @@ const stations = [
       "Based at Foothill College, known for adventurous programming and support of underground and experimental music.",
     streamUrl: "https://netcast.kfjc.org/kfjc-128k-mp3",
   },
+  {
+    id: 10,
+    name: "KMKB 98.9 FM - Marfa, TX",
+    description:
+      "KMKB 98.9 is a community radio station and recording studio in Marfa, TX.",
+    streamUrl: "http://50.19.66.66:8000/kmkb",
+  },
+  {
+    id: 11,
+    name: "WWOZ 90.7 FM  - New Orleans, LA",
+    description:
+      "WWOZ (90.7 FM) is a non-profit community-supported radio station in New Orleans. The station specializes in music from or relating to the cultural heritage of New Orleans and the surrounding region of Louisiana.",
+    streamUrl: "https://wwoz-sc.streamguys1.com/wwoz-hi.mp3",
+  },
 ];
 
 export default stations;
