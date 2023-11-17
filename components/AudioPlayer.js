@@ -63,7 +63,10 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
       <button onClick={() => setIsPlaying(!isPlaying)}>
         {isPlaying ? "Pause" : "Play"}
       </button>
-      <div>Now Playing: {station?.name || "Select a Station"}</div>
+      {!isLoading && (
+        <div>Now Playing: {station?.name || "Select a Station"}</div>
+      )}
+
       {isLoading && <div>Loading...</div>}
       <audio ref={audioRef} />
     </div>
