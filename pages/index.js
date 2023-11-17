@@ -16,7 +16,7 @@ const IndexPage = () => {
   return (
     <div>
       <PageTitle />
-      <div>
+      <div className="station-map">
         {stations.map((station) => (
           <RadioStationCard
             key={station.id}
