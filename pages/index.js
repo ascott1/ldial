@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import stations from "../data/stations";
+import PageTitle from "../components/PageTitle";
 import RadioStationCard from "../components/RadioStationCard";
 import AudioPlayer from "../components/AudioPlayer";
 
@@ -14,7 +15,7 @@ const IndexPage = () => {
 
   return (
     <div>
-      <h1>Ldial</h1>
+      <PageTitle />
       <div>
         {stations.map((station) => (
           <RadioStationCard
