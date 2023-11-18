@@ -4,6 +4,8 @@ import PageTitle from "../components/PageTitle";
 import RadioStationCard from "../components/RadioStationCard";
 import AudioPlayer from "../components/AudioPlayer";
 
+import styles from "../styles/Home.module.css";
+
 const IndexPage = () => {
   const [currentStation, setCurrentStation] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -16,7 +18,7 @@ const IndexPage = () => {
   return (
     <div>
       <PageTitle />
-      <div className="station-map">
+      <div className={styles.stations}>
         {stations
           // Sort stations by ID
           .sort((a, b) => {
