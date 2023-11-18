@@ -19,3 +19,13 @@
 .stationDescription {
   font-size: 0.9em;
 }
+
+@media (prefers-color-scheme: dark) {
+  .card {
+    border-color: #333;
+  }
+
+  .card:hover {
+    background-color: #222;
+  }
+}

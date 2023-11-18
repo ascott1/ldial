@@ -4,7 +4,7 @@ import styles from "./RadioStationCard.module.css"; // Assuming you're using CSS
 const RadioStationCard = ({ station, onSelect }) => {
   return (
     <div className={styles.card} onClick={() => onSelect(station)}>
-      <h3 className={styles.stationName}>{station.name}</h3>
+      <h2 className={styles.stationName}>{station.name}</h2>
       <p className={styles.stationDescription}>{station.description}</p>
       {/* Add more station details here */}
     </div>
