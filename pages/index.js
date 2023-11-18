@@ -17,13 +17,25 @@ const IndexPage = () => {
     <div>
       <PageTitle />
       <div className="station-map">
-        {stations.map((station) => (
-          <RadioStationCard
-            key={station.id}
-            station={station}
-            onSelect={handleStationSelect}
-          />
-        ))}
+        {stations
+          // Sort stations by ID
+          .sort((a, b) => {
+            if (a.id < b.id) {
+              return -1;
+            }
+            if (a.id > b.id) {
+              return 1;
+            }
+            return 0;
+          })
+          // Map over stations and render a RadioStationCard for each one
+          .map((station) => (
+            <RadioStationCard
+              key={station.id}
+              station={station}
+              onSelect={handleStationSelect}
+            />
+          ))}
       </div>
       {currentStation && (
         <AudioPlayer
