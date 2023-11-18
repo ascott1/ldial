@@ -17,7 +17,9 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
       const handleWaiting = () => setIsLoading(true);
       const handlePlay = () => setIsLoading(false);
       const handlePause = () => setIsLoading(false);
-      const handleError = () => setIsLoading(false);
+      const handleError = (e) => {
+        console.error("Audio playback error:", e);
+      };
 
       audio.addEventListener("canplay", handleCanPlay);
       audio.addEventListener("waiting", handleWaiting);
@@ -41,7 +43,7 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
       setIsLoading(true);
       audioRef.current.src = station.streamUrl;
       audioRef.current.load();
-      if (isPlaying) {
+      if (isPlaying || isFirstLoad) {
         tryToPlayAudio();
       }
     }
@@ -70,7 +72,6 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
         await audioRef.current.play();
       } catch (error) {
         console.error("Error playing audio:", error);
-        setIsPlaying(false);
       }
     }
   };
