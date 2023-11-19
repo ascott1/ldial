@@ -1,6 +1,6 @@
 import Head from "next/head";
 import "../styles/globals.css";
-import { Inconsolata } from "@next/font/google";
+import { Inconsolata } from "next/font/google";
 
 const inconsolata = Inconsolata({
   subsets: ["latin"],
