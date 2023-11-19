@@ -4,7 +4,6 @@ import { createProxyMiddleware } from "http-proxy-middleware";
 
 export default function (req, res) {
   // Don't allow requests to just any URL, make sure to validate the URL being requested
-  // For example, you might only allow a specific domain or set of domains
   if (req.query.url.startsWith("http://50.19.66.66:8000")) {
     const decodedUrl = decodeURIComponent(req.query.url);
     return createProxyMiddleware({
@@ -12,6 +11,12 @@ export default function (req, res) {
       changeOrigin: true,
       pathRewrite: {
         "^/api/proxy": "",
+      },
+      onProxyRes: function (proxyRes, req, res) {
+        if (!proxyRes.headers["content-type"]) {
+          // Set content-type header if not already set by the server
+          proxyRes.headers["content-type"] = "audio/mpeg";
+        }
       },
       // Additional options here if needed
     })(req, res);
