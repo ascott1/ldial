@@ -45,9 +45,8 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
       // Deal with http URLs that need to be proxied
       if (station.streamUrl === "http://50.19.66.66:8000/kmkb") {
         // Set the source to the proxy endpoint
-        audioRef.current.src = `/api/proxy?url=${encodeURIComponent(
-          station.streamUrl
-        )}`;
+        audioRef.current.src = `/api/proxy?url=${station.streamUrl}`;
+        console.log("audioRef.current.src", audioRef.current.src);
       } else {
         // For all other URLs, use them as they are
         audioRef.current.src = station.streamUrl;
