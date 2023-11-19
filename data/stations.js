@@ -5,14 +5,14 @@ const stations = [
     name: "WFMU 91.1 FM - Jersey City, NJ",
     description:
       "An independent freeform station broadcasting at 91.1 fm in New York, known for its eclectic mix of music and programming.",
-    streamUrl: "http://stream0.wfmu.org/freeform-128k",
+    streamUrl: "https://stream0.wfmu.org/freeform-128k",
   },
   {
     id: "KEXP",
     name: "KEXP 90.3 FM - Seattle, WA",
     description:
       "Famous for its live studio sessions, KEXP is a haven for lovers of indie rock, alternative music, and beyond.",
-    streamUrl: "http://live-mp3-128.kexp.org/kexp128.mp3",
+    streamUrl: "https://kexp.streamguys1.com/kexp160.aac",
   },
   {
     id: "WXPN",
@@ -26,7 +26,7 @@ const stations = [
     name: "KCRW 89.9 FM - Santa Monica, CA",
     description:
       "Offers a diverse range of music genres, from indie rock to world music, along with news and cultural programming.",
-    streamUrl: "http://kcrw.streamguys1.com/kcrw_192k_mp3_on_air",
+    streamUrl: "https://kcrw.streamguys1.com/kcrw_192k_mp3_on_air",
   },
   {
     id: "KPFA",
@@ -54,7 +54,7 @@ const stations = [
     name: "WXYC 89.3 FM - Chapel Hill, NC",
     description:
       "A student-run station known for its eclectic and experimental music choices, reflecting the diverse tastes of its DJs.",
-    streamUrl: "http://audio-mp3.ibiblio.org:8000/wxyc.mp3",
+    streamUrl: "https://audio-mp3.ibiblio.org/wxyc.mp3",
   },
   {
     id: "KFJC",
