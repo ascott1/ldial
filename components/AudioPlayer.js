@@ -48,7 +48,6 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
         audioRef.current.src = `/api/proxy?url=${encodeURIComponent(
           station.streamUrl
         )}`;
-        console.log(audioRef.current.src);
       } else {
         // For all other URLs, use them as they are
         audioRef.current.src = station.streamUrl;
@@ -108,7 +107,7 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
       )}
 
       {isLoading && <div>Loading...</div>}
-      <audio ref={audioRef} />
+      <audio ref={audioRef} preload="auto" />
     </div>
   );
 };

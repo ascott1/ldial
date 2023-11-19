@@ -1,4 +1,4 @@
-import React from "react";
+import Head from "next/head";
 import styles from "./RadioStationCard.module.css"; // Assuming you're using CSS Modules
 
 const RadioStationCard = ({ station, onSelect }) => {
