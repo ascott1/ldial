@@ -6,7 +6,7 @@
   background-color: white;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
   color: black;
-  padding: 10px;
+  padding: 16px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,6 +20,12 @@
   font-size: 1.5rem;
   color: black;
   padding: 0 10px;
+}
+
+@media (max-width: 400px) {
+  .now {
+    display: none;
+  }
 }
 
 /* Dark mode styles */

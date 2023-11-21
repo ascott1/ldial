@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import { FaPlay, FaPause } from "react-icons/fa6";
 
@@ -102,7 +103,12 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
         )}
       </button>
       {!isLoading && (
-        <div>Now Playing: {station?.name || "Select a Station"}</div>
+        <div>
+          <span className={styles.now}>Now Playing: </span>
+          <span className={styles.station}>
+            {station?.name || "Select a Station"}
+          </span>
+        </div>
       )}
 
       {isLoading && <div>Loading...</div>}

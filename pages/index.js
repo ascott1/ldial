@@ -35,6 +35,7 @@ const IndexPage = () => {
             <RadioStationCard
               key={station.id}
               station={station}
+              isPlaying={currentStation?.id === station.id && isPlaying}
               onSelect={handleStationSelect}
             />
           ))}
