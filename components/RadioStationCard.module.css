@@ -9,12 +9,6 @@
 
 .playing {
   border: 1px solid #000;
-
-  .stationName {
-    display: inline-block;
-    text-decoration: underline 2px wavy pink;
-    text-underline-offset: 4px;
-  }
 }
 
 .card:hover {
