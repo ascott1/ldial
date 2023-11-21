@@ -68,7 +68,7 @@ const stations = [
     name: "KMKB 98.9 FM - Marfa, TX",
     description:
       "KMKB 98.9 is a community radio station and recording studio in Marfa, TX.",
-    streamUrl: "http://50.19.66.66:8000/kmkb",
+    streamUrl: "https://ldial-proxy.up.railway.app/kmkb",
   },
   {
     id: "WWOZ",
