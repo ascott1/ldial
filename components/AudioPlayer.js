@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import { FaPlay, FaPause } from "react-icons/fa6";
+import { ToastContainer, toast, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Head from "next/head";
 import styles from "./AudioPlayer.module.css";
@@ -10,53 +12,46 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
+  // toast notification
+  const notify = (message) => toast(message);
+
   // Setup event listeners for the audio element
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
-      const handleCanPlay = () => setIsLoading(false);
+      const handleCanPlay = () => {
+        setIsLoading(false);
+        if (isPlaying || isFirstLoad) {
+          tryToPlayAudio();
+        }
+      };
       const handleWaiting = () => setIsLoading(true);
-      const handlePlay = () => setIsLoading(false);
-      const handlePause = () => setIsLoading(false);
       const handleError = (e) => {
         console.error("Audio playback error:", e);
+        notify("💔 Playback error occurred");
       };
 
       audio.addEventListener("canplay", handleCanPlay);
       audio.addEventListener("waiting", handleWaiting);
-      audio.addEventListener("play", handlePlay);
-      audio.addEventListener("pause", handlePause);
       audio.addEventListener("error", handleError);
 
       return () => {
         audio.removeEventListener("canplay", handleCanPlay);
         audio.removeEventListener("waiting", handleWaiting);
-        audio.removeEventListener("play", handlePlay);
-        audio.removeEventListener("pause", handlePause);
         audio.removeEventListener("error", handleError);
       };
     }
-  }, []);
+  }, [isPlaying, isFirstLoad]);
 
   // Effect for loading new station
   useEffect(() => {
     if (station && audioRef.current) {
       setIsLoading(true);
 
-      // Deal with http URLs that need to be proxied
-      if (station.streamUrl === "http://50.19.66.66:8000/kmkb") {
-        // Set the source to the proxy endpoint
-        audioRef.current.src = `/api/proxy?url=${station.streamUrl}`;
-        console.log("audioRef.current.src", audioRef.current.src);
-      } else {
-        // For all other URLs, use them as they are
-        audioRef.current.src = station.streamUrl;
-      }
-
+      // Set the source for the audio
+      audioRef.current.src = station.streamUrl;
+      // Load the audio
       audioRef.current.load();
-      if (isPlaying || isFirstLoad) {
-        tryToPlayAudio();
-      }
     }
   }, [station]);
 
@@ -83,37 +78,51 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
         await audioRef.current.play();
       } catch (error) {
         console.error("Error playing audio:", error);
+        notify("Error playing audio");
       }
     }
   };
 
   return (
-    <div className={styles.audioPlayer}>
-      <Head>
-        <title>{station?.name || "Ldial"}</title>
-      </Head>
-      <button
-        className={styles.button}
-        onClick={() => setIsPlaying(!isPlaying)}
-      >
-        {isPlaying ? (
-          <FaPause aria-label="pause" />
-        ) : (
-          <FaPlay aria-label="play" />
+    <>
+      <div className={styles.audioPlayer}>
+        <Head>
+          <title>{station?.name || "Ldial"}</title>
+        </Head>
+        <button
+          className={styles.button}
+          onClick={() => setIsPlaying(!isPlaying)}
+        >
+          {isPlaying ? (
+            <FaPause aria-label="pause" />
+          ) : (
+            <FaPlay aria-label="play" />
+          )}
+        </button>
+        {!isLoading && (
+          <div>
+            <span className={styles.now}>Now Playing: </span>
+            <span className={styles.station}>
+              {station?.name || "Select a Station"}
+            </span>
+          </div>
         )}
-      </button>
-      {!isLoading && (
-        <div>
-          <span className={styles.now}>Now Playing: </span>
-          <span className={styles.station}>
-            {station?.name || "Select a Station"}
-          </span>
-        </div>
-      )}
-
-      {isLoading && <div>Loading...</div>}
-      <audio ref={audioRef} preload="auto" />
-    </div>
+        {isLoading && <div>Loading...</div>}
+        <audio ref={audioRef} preload="auto" />
+      </div>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Zoom}
+      />
+    </>
   );
 };
 
