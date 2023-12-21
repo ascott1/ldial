@@ -23,8 +23,16 @@ const RadioStationCard = ({
       <h2 className={styles.stationName}>{station.name}</h2>
       <p className={styles.stationDescription}>{station.description}</p>
       <button onClick={handleFavoriteClick} className={styles.favoriteButton}>
-        {isFavorite ? <FaHeart /> : <FaRegHeart />}{" "}
-        {/* Change these to actual icons if needed */}
+        <FaHeart
+          className={`${styles.heart} ${
+            isFavorite ? styles.showIcon : styles.hideIcon
+          }`}
+        />
+        <FaRegHeart
+          className={`${styles.heart} ${
+            isFavorite ? styles.hideIcon : styles.showIcon
+          }`}
+        />
       </button>
     </div>
   );

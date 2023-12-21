@@ -26,16 +26,28 @@
 }
 
 .favoriteButton {
-  border: 0;
-  background: none;
-  cursor: pointer;
   position: absolute;
-  bottom: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
   right: 10px;
+  bottom: 10px;
 }
 
-.favoriteButton:hover {
-  color: #f00;
+.showIcon {
+  display: block;
+}
+
+.hideIcon {
+  display: none;
+}
+
+.favoriteButton:hover .showIcon {
+  display: none;
+}
+
+.favoriteButton:hover .hideIcon {
+  display: block;
 }
 
 @media (prefers-color-scheme: dark) {
