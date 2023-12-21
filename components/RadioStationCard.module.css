@@ -5,6 +5,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
+  position: relative;
 }
 
 .playing {
@@ -22,6 +23,19 @@
 
 .stationDescription {
   font-size: 0.9em;
+}
+
+.favoriteButton {
+  border: 0;
+  background: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.favoriteButton:hover {
+  color: #f00;
 }
 
 @media (prefers-color-scheme: dark) {
