@@ -11,9 +11,31 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
   const audioRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [retryCount, setRetryCount] = useState(0);
+  const maxRetries = 5; // Maximum number of retries
 
   // toast notification
   const notify = (message) => toast(message);
+
+  // Resume playback if the audio is interrupted
+  const resumePlayback = () => {
+    if (retryCount < maxRetries) {
+      setTimeout(() => {
+        if (
+          audioRef.current &&
+          !audioRef.current.paused &&
+          !audioRef.current.ended
+        ) {
+          tryToPlayAudio();
+          setRetryCount(retryCount + 1);
+        }
+      }, 3000 * retryCount); // Increase delay with each retry
+    } else {
+      console.log("Max retries reached, not attempting further playback.");
+      setIsLoading(false);
+      setRetryCount(0); // Reset retry count
+    }
+  };
 
   // Setup event listeners for the audio element
   useEffect(() => {
@@ -21,6 +43,7 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
     if (audio) {
       const handleCanPlay = () => {
         setIsLoading(false);
+        setRetryCount(0); // Reset retry count on successful playback
         if (isPlaying || isFirstLoad) {
           tryToPlayAudio();
         }
@@ -29,16 +52,25 @@ const AudioPlayer = ({ station, isPlaying, setIsPlaying }) => {
       const handleError = (e) => {
         console.error("Audio playback error:", e);
         notify("💔 Playback error occurred");
+        resumePlayback(); // Attempt to resume playback
+      };
+
+      const handleStalled = () => {
+        console.log("Audio playback stalled");
+        setIsLoading(true);
+        resumePlayback();
       };
 
       audio.addEventListener("canplay", handleCanPlay);
       audio.addEventListener("waiting", handleWaiting);
       audio.addEventListener("error", handleError);
+      audio.addEventListener("stalled", handleStalled);
 
       return () => {
         audio.removeEventListener("canplay", handleCanPlay);
         audio.removeEventListener("waiting", handleWaiting);
         audio.removeEventListener("error", handleError);
+        audio.removeEventListener("stalled", handleStalled);
       };
     }
   }, [isPlaying, isFirstLoad]);
